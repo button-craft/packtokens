@@ -202,7 +202,7 @@
 </head>
 <body>
     <div class="header">
-        <div class="header-image-placeholder">Image placeholder</div>
+        <img src="img/BC_logo.png" alt="BC Logo" style="max-width: 80%; height: auto; border-radius: 10px;">
     </div>
 
     <div class="container">
@@ -231,6 +231,9 @@
                 <div class="coin-container">
                     <div class="coin" id="coin">1</div>
                     <span>Daily Coin</span>
+                </div>
+                <div style="text-align: center; margin-bottom: 10px; font-size: 14px; color: var(--peach-color);">
+                    3 peaches anywhere on board to win
                 </div>
                 <button class="spin-button" id="spin-button">SPIN</button>
             </div>
@@ -263,13 +266,16 @@
                     return;
                 }
                 
+                // Use the coin
                 hasCoin = false;
                 localStorage.setItem('lastPlayed', today);
                 updateCoinDisplay();
                 
+                // Hide previous outcomes
                 outcome.style.visibility = 'hidden';
                 winMessage.style.visibility = 'hidden';
                 
+                // Start the spin
                 spinSlots();
             });
             
@@ -287,38 +293,47 @@
                 const slots = document.querySelectorAll('.slot');
                 const slotItems = document.querySelectorAll('.slot-item');
                 
+                // Clear previous items
                 slotItems.forEach(item => {
                     item.textContent = '';
                     item.style.animation = '';
                 });
                 
+                // Determine outcome (9 slots with 90% cherry, 10% peach)
                 const results = [];
                 let hasPeach = false;
                 
                 for (let i = 0; i < 9; i++) {
+                    // 10% chance for peach, 90% for cherry
                     const isPeach = Math.random() < 0.1;
                     if (isPeach) hasPeach = true;
                     results.push(isPeach ? '🍑' : '🍒');
                 }
                 
+                // Animated spin for each slot
                 slots.forEach((slot, index) => {
                     const row = Math.floor(index / 3);
                     const col = index % 3;
                     const slotItem = slot.querySelector('.slot-item');
                     
+                    // Create spinning animation with many random fruits
                     const spinDuration = 1000 + (row * 500) + (col * 200) + (Math.random() * 500);
                     
+                    // Start the animation
                     slotItem.style.animation = `spin ${spinDuration/1000}s ease-in-out`;
                     
+                    // Show random fruits during animation
                     const animationInterval = setInterval(() => {
                         slotItem.textContent = Math.random() < 0.5 ? '🍒' : '🍑';
                     }, 100);
                     
+                    // Set the final result after animation
                     setTimeout(() => {
                         clearInterval(animationInterval);
                         slotItem.style.animation = '';
                         slotItem.textContent = results[index];
                         
+                        // If this is the last slot, check for win
                         if (index === 8) {
                             setTimeout(checkForWin, 500, hasPeach);
                         }
@@ -328,11 +343,14 @@
             
             function checkForWin(hasPeach) {
                 if (hasPeach) {
+                    // Generate verification ID
                     const verificationId = generateVerificationId();
                     verification.textContent = verificationId;
                     
+                    // Show win message
                     winMessage.style.visibility = 'visible';
                 } else {
+                    // Show no win message
                     outcome.textContent = 'yeah you suck';
                     outcome.style.visibility = 'visible';
                 }
@@ -347,6 +365,7 @@
                 return result;
             }
 
+            // Debug function to test winning (uncomment for testing)
             /* 
             window.forceWin = function() {
                 hasCoin = true;
