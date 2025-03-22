@@ -367,16 +367,43 @@
 
             // Debug function to test winning (uncomment for testing)
             /* 
+            // Console command to force win with 3 peaches
             window.forceWin = function() {
                 hasCoin = true;
                 updateCoinDisplay();
+                const results = [];
+                
+                // Add 3 peaches and 6 cherries
+                for (let i = 0; i < 3; i++) {
+                    results.push('🍑');
+                }
+                for (let i = 0; i < 6; i++) {
+                    results.push('🍒');
+                }
+                
+                // Shuffle the array to randomize positions
+                for (let i = results.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [results[i], results[j]] = [results[j], results[i]];
+                }
+                
+                // Set the slot items
                 const slotItems = document.querySelectorAll('.slot-item');
-                slotItems.forEach(item => {
-                    item.textContent = '🍑';
+                slotItems.forEach((item, index) => {
+                    item.textContent = results[index];
                 });
-                checkForWin(true);
+                
+                checkForWin(results);
             };
             */
+            
+            // Console command to give yourself a coin
+            window.giveCoin = function() {
+                localStorage.removeItem('lastPlayed');
+                hasCoin = true;
+                updateCoinDisplay();
+                console.log('You now have a coin to play!');
+            };
         });
     </script>
 </body>
