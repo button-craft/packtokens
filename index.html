@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>win pack tokens!!!!!!</title>
+    <style>
+        :root {
+            --dark-blue: #0a1929;
+            --medium-blue: #1a2b3c;
+            --light-blue: #2a3b4c;
+            --highlight: #4a89dc;
+            --text: #ffffff;
+            --cherry-color: #ff3b30;
+            --peach-color: #ffcc00;
+            --slot-size: 100px;
+        }
+
+        body {
+            background-color: var(--dark-blue);
+            color: var(--text);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .header {
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .header-image-placeholder {
+            width: 80%;
+            height: 200px;
+            background-color: var(--medium-blue);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--highlight);
+            font-style: italic;
+        }
+
+        .container {
+            background-color: var(--medium-blue);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 20px;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            color: var(--highlight);
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .slot-machine {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .slots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .row {
+            display: contents;
+        }
+
+        .slot {
+            background-color: var(--light-blue);
+            border-radius: 10px;
+            width: var(--slot-size);
+            height: var(--slot-size);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .slot-item {
+            font-size: 48px;
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .spin-button {
+            background-color: var(--highlight);
+            border: none;
+            border-radius: 50px;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px 40px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .spin-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .spin-button:active:not(:disabled) {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .spin-button:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .coin-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .coin {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle at 30% 30%, #ffdf00, #ffa500);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .outcome {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+            height: 30px;
+            visibility: hidden;
+        }
+
+        .win-message {
+            color: var(--peach-color);
+            font-weight: bold;
+            visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .verification {
+            font-size: 14px;
+            background-color: var(--light-blue);
+            padding: 5px 10px;
+            border-radius: 5px;
+            letter-spacing: 1px;
+        }
+
+        @keyframes spin {
+            0% { transform: translateY(-500px); }
+            100% { transform: translateY(500px); }
+        }
+
+        @keyframes stopSpin {
+            0% { transform: translateY(var(--final-offset)); }
+            20% { transform: translateY(calc(var(--final-offset) + 20px)); }
+            100% { transform: translateY(var(--final-offset)); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-image-placeholder">Image placeholder</div>
+    </div>
+
+    <div class="container">
+        <h1>win pack tokens!!!!!!</h1>
+        
+        <div class="slot-machine">
+            <div class="slots">
+                <div class="row">
+                    <div class="slot" id="slot-0-0"><div class="slot-item">🍒</div></div>
+                    <div class="slot" id="slot-0-1"><div class="slot-item">🍒</div></div>
+                    <div class="slot" id="slot-0-2"><div class="slot-item">🍒</div></div>
+                </div>
+                <div class="row">
+                    <div class="slot" id="slot-1-0"><div class="slot-item">🍒</div></div>
+                    <div class="slot" id="slot-1-1"><div class="slot-item">🍒</div></div>
+                    <div class="slot" id="slot-1-2"><div class="slot-item">🍒</div></div>
+                </div>
+                <div class="row">
+                    <div class="slot" id="slot-2-0"><div class="slot-item">🍒</div></div>
+                    <div class="slot" id="slot-2-1"><div class="slot-item">🍒</div></div>
+                    <div class="slot" id="slot-2-2"><div class="slot-item">🍒</div></div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <div class="coin-container">
+                    <div class="coin" id="coin">1</div>
+                    <span>Daily Coin</span>
+                </div>
+                <button class="spin-button" id="spin-button">SPIN</button>
+            </div>
+            
+            <div class="outcome" id="outcome"></div>
+            <div class="win-message" id="win-message">
+                <div>1 TOKEN WON!</div>
+                <div class="verification" id="verification"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const spinButton = document.getElementById('spin-button');
+            const outcome = document.getElementById('outcome');
+            const winMessage = document.getElementById('win-message');
+            const verification = document.getElementById('verification');
+            const coinDisplay = document.getElementById('coin');
+            
+            const today = new Date().toDateString();
+            let lastPlayed = localStorage.getItem('lastPlayed');
+            let hasCoin = lastPlayed !== today;
+            
+            updateCoinDisplay();
+            
+            spinButton.addEventListener('click', function() {
+                if (!hasCoin) {
+                    alert('You have used your coin for today. Come back tomorrow!');
+                    return;
+                }
+                
+                hasCoin = false;
+                localStorage.setItem('lastPlayed', today);
+                updateCoinDisplay();
+                
+                outcome.style.visibility = 'hidden';
+                winMessage.style.visibility = 'hidden';
+                
+                spinSlots();
+            });
+            
+            function updateCoinDisplay() {
+                if (hasCoin) {
+                    coinDisplay.style.opacity = '1';
+                    spinButton.disabled = false;
+                } else {
+                    coinDisplay.style.opacity = '0.3';
+                    spinButton.disabled = true;
+                }
+            }
+            
+            function spinSlots() {
+                const slots = document.querySelectorAll('.slot');
+                const slotItems = document.querySelectorAll('.slot-item');
+                
+                slotItems.forEach(item => {
+                    item.textContent = '';
+                    item.style.animation = '';
+                });
+                
+                const results = [];
+                let hasPeach = false;
+                
+                for (let i = 0; i < 9; i++) {
+                    const isPeach = Math.random() < 0.1;
+                    if (isPeach) hasPeach = true;
+                    results.push(isPeach ? '🍑' : '🍒');
+                }
+                
+                slots.forEach((slot, index) => {
+                    const row = Math.floor(index / 3);
+                    const col = index % 3;
+                    const slotItem = slot.querySelector('.slot-item');
+                    
+                    const spinDuration = 1000 + (row * 500) + (col * 200) + (Math.random() * 500);
+                    
+                    slotItem.style.animation = `spin ${spinDuration/1000}s ease-in-out`;
+                    
+                    const animationInterval = setInterval(() => {
+                        slotItem.textContent = Math.random() < 0.5 ? '🍒' : '🍑';
+                    }, 100);
+                    
+                    setTimeout(() => {
+                        clearInterval(animationInterval);
+                        slotItem.style.animation = '';
+                        slotItem.textContent = results[index];
+                        
+                        if (index === 8) {
+                            setTimeout(checkForWin, 500, hasPeach);
+                        }
+                    }, spinDuration);
+                });
+            }
+            
+            function checkForWin(hasPeach) {
+                if (hasPeach) {
+                    const verificationId = generateVerificationId();
+                    verification.textContent = verificationId;
+                    
+                    winMessage.style.visibility = 'visible';
+                } else {
+                    outcome.textContent = 'yeah you suck';
+                    outcome.style.visibility = 'visible';
+                }
+            }
+            
+            function generateVerificationId() {
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                let result = '';
+                for (let i = 0; i < 10; i++) {
+                    result += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return result;
+            }
+
+            /* 
+            window.forceWin = function() {
+                hasCoin = true;
+                updateCoinDisplay();
+                const slotItems = document.querySelectorAll('.slot-item');
+                slotItems.forEach(item => {
+                    item.textContent = '🍑';
+                });
+                checkForWin(true);
+            };
+            */
+        });
+    </script>
+</body>
+</html>
